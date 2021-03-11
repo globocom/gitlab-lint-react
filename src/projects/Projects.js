@@ -95,7 +95,7 @@ const Projects = () => {
               <div className={classes.levels}>
                 {Object.keys(row.rules).map((key, index) => {
                   return (
-                    <Tooltip title={key} placement="top-start">
+                    <Tooltip key={key} title={key} placement="top-start">
                       <Chip
                         className={`${classes.level} ${classes[key]}`}
                         label={row.rules[key]}
