@@ -11,6 +11,7 @@ import {
   ListItemText,
   Tooltip,
   Typography,
+  Input
 } from "@material-ui/core";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
@@ -19,6 +20,13 @@ import Loading from "../Loading";
 const useStyles = makeStyles((theme) => ({
   level: {
     color: "#fff",
+  },
+  header: {
+    float: "left",
+  },
+  search: {
+    float: "right",
+    marginBottom: "15px",
   },
   levels: {
     display: "flex",
@@ -55,11 +63,16 @@ const Projects = () => {
   const classes = useStyles();
 
   const [page, setPage] = React.useState(1);
+  const [searchInput, setSearchInput] = React.useState("");
   const handleChange = (event, value) => {
     setPage(value);
-    fetchData({ query: { page: value } });
+    fetchData({ query: { page: value, q: searchInput } });
   };
 
+  const handleChangeSearch = (value)  => {    
+    setSearchInput(value);  
+    fetchData({ query: { page, q: value } })
+  }
   const [rows, setData] = useState({});
   const fetchData = ({ query }) => {
     GitlabLintHttpClient("GET_ALL", { entity: "projects", query: query })
@@ -79,10 +92,13 @@ const Projects = () => {
 
   return (
     <React.Fragment>
-      <Typography variant="h4" paragraph>
+      <Typography variant="h4" className={classes.header} paragraph>
         Projects
       </Typography>
       <List>
+      <form className={classes.search} noValidate autoComplete="off">
+        <Input placeholder="Search for a project.." value={searchInput}  onChange={e => handleChangeSearch(e.target.value)}/>
+      </form>
         {rows.map((row) => {
           return (
             <ListItem
