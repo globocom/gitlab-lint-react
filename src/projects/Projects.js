@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import {
@@ -13,6 +13,7 @@ import {
   Typography,
   Input
 } from "@material-ui/core";
+import debounce from 'lodash.debounce';
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
@@ -68,10 +69,14 @@ const Projects = () => {
     setPage(value);
     fetchData({ query: { page: value, q: searchInput } });
   };
-
+	const debouncedSearch = useCallback(
+		debounce(value => fetchData({ query: { page, q: value } }), 500),
+		[],
+	);
   const handleChangeSearch = (value)  => {    
     setSearchInput(value);  
-    fetchData({ query: { page, q: value } })
+    debouncedSearch(value);
+    
   }
   const [rows, setData] = useState({});
   const fetchData = ({ query }) => {
