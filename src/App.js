@@ -53,7 +53,7 @@ const theme = createMuiTheme({
   },
 });
 
-function App() {
+const App = () => {
   const classes = useStyles();
 
   return (
@@ -120,6 +120,6 @@ function App() {
       </MuiThemeProvider>
     </Router>
   );
-}
+};
 
 export default App;
