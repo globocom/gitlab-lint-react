@@ -23,11 +23,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
   header: {
-    float: "left",
-  },
-  search: {
-    float: "right",
-    marginBottom: "15px",
+    display: "flex",
+    justifyContent: "space-between",
   },
   levels: {
     display: "flex",
@@ -96,17 +93,19 @@ const Projects = () => {
 
   return (
     <React.Fragment>
-      <Typography variant="h4" className={classes.header} paragraph>
-        Projects
-      </Typography>
-      <List>
-        <form className={classes.search} noValidate autoComplete="off">
+      <div className={classes.header}>
+        <Typography variant="h4" paragraph>
+          Projects
+        </Typography>
+        <form noValidate autoComplete="off">
           <Input
             placeholder="Find a project..."
             value={searchInput}
             onChange={(e) => handleChangeSearch(e.target.value)}
           />
         </form>
+      </div>
+      <List>
         {rows.map((row) => {
           return (
             <ListItem
