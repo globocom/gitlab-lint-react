@@ -102,7 +102,7 @@ const Projects = () => {
       <List>
         <form className={classes.search} noValidate autoComplete="off">
           <Input
-            placeholder="Search for a project.."
+            placeholder="Find a project..."
             value={searchInput}
             onChange={(e) => handleChangeSearch(e.target.value)}
           />
