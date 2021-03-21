@@ -1,17 +1,19 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import {
   Chip,
+  Input,
   List,
   ListItem,
   ListItemText,
   Tooltip,
   Typography,
 } from "@material-ui/core";
+import { debounce } from "lodash";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
@@ -19,6 +21,10 @@ import Loading from "../Loading";
 const useStyles = makeStyles((theme) => ({
   level: {
     color: "#fff",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   levels: {
     display: "flex",
@@ -55,11 +61,19 @@ const Projects = () => {
   const classes = useStyles();
 
   const [page, setPage] = React.useState(1);
+  const [searchInput, setSearchInput] = React.useState("");
   const handleChange = (event, value) => {
     setPage(value);
-    fetchData({ query: { page: value } });
+    fetchData({ query: { page: value, q: searchInput } });
   };
-
+  const debouncedSearch = useCallback(
+    debounce((value) => fetchData({ query: { page, q: value } }), 500),
+    []
+  );
+  const handleChangeSearch = (value) => {
+    setSearchInput(value);
+    debouncedSearch(value);
+  };
   const [rows, setData] = useState({});
   const fetchData = ({ query }) => {
     GitlabLintHttpClient("GET_ALL", { entity: "projects", query: query })
@@ -79,9 +93,18 @@ const Projects = () => {
 
   return (
     <React.Fragment>
-      <Typography variant="h4" paragraph>
-        Projects
-      </Typography>
+      <div className={classes.header}>
+        <Typography variant="h4" paragraph>
+          Projects
+        </Typography>
+        <form noValidate autoComplete="off">
+          <Input
+            placeholder="Find a project..."
+            value={searchInput}
+            onChange={(e) => handleChangeSearch(e.target.value)}
+          />
+        </form>
+      </div>
       <List>
         {rows.map((row) => {
           return (
