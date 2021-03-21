@@ -13,7 +13,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import debounce from "lodash.debounce";
+import { debounce } from "lodash";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
