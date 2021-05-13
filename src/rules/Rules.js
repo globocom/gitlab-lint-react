@@ -28,15 +28,16 @@ const useStyles = makeStyles(() => ({
 const Rules = () => {
   const classes = useStyles();
   const [rows, setData] = useState({});
-  const fetchData = () => {
-    GitlabLintHttpClient("GET_ALL", { entity: "rules" })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
+    const fetchData = () => {
+      GitlabLintHttpClient("GET_ALL", { entity: "rules" })
+        .then((data) => {
+          setData(data);
+        })
+        .catch((err) => console.error(err));
+    };
+
     fetchData();
   }, []);
 

@@ -62,17 +62,18 @@ const Rule = () => {
   const classes = useStyles();
   const [rows, setData] = useState({});
   const { id } = useParams();
-  const fetchData = () => {
-    GitlabLintHttpClient("GET_ONE", { entity: "rules", id: id })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((err) => console.error(err));
-  };
 
   useEffect(() => {
+    const fetchData = () => {
+      GitlabLintHttpClient("GET_ONE", { entity: "rules", id: id })
+        .then((data) => {
+          setData(data);
+        })
+        .catch((err) => console.error(err));
+    };
+
     fetchData();
-  }, []);
+  }, [id]);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {
     return <Loading />;
