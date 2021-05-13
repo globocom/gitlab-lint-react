@@ -13,8 +13,9 @@ import {
 
 import Loading from "../Loading";
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
+import levelsStyle from "../theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     minWidth: 275,
   },
@@ -24,25 +25,12 @@ const useStyles = makeStyles((theme) => ({
   level: {
     color: "#fff",
   },
-  warning: {
-    backgroundColor: theme.palette.warning.main,
-  },
-  info: {
-    backgroundColor: theme.palette.info.main,
-  },
-  error: {
-    backgroundColor: theme.palette.error.main,
-  },
-  pedantic: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  experimental: {
-    backgroundColor: theme.palette.success.main,
-  },
+  ...levelsStyle,
 }));
 
 const Levels = () => {
   const classes = useStyles();
+
   const [rows, setData] = useState({});
   const fetchData = () => {
     GitlabLintHttpClient("GET_ALL", { entity: "levels" })
