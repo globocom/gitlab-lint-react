@@ -20,13 +20,21 @@ import ProjectTitle from "./ProjectTitle";
 
 const Project = () => {
   const [rows, setData] = useState({});
+  const [errorMessage, setErrorMessage] = useState({});
   const { id } = useParams();
   const fetchData = () => {
     GitlabLintHttpClient("GET_ONE", { entity: "projects", id: id })
       .then((data) => {
         setData(data.data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setErrorMessage({
+          status: err.response.status,
+          message: err.response.data.errors["_all"]
+        });
+        console.error(err);
+        console.error(err.response)
+      });
   };
 
   useEffect(() => {
@@ -34,7 +42,18 @@ const Project = () => {
   }, []);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {
-    return <Loading />;
+    let messageTitle = "Error";
+    if (errorMessage.status === 404) {
+      messageTitle = "Project not found";
+    }
+    return <>
+      <Typography variant="h4" paragraph>
+        {messageTitle}
+      </Typography>
+      <pre>
+        {errorMessage.message}
+      </pre>
+    </>;
   }
 
   return (
