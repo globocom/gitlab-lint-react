@@ -24,7 +24,7 @@ const Project = () => {
   const fetchData = () => {
     GitlabLintHttpClient("GET_ONE", { entity: "projects", id: id })
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((err) => console.error(err));
   };

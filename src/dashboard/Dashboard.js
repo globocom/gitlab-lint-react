@@ -13,7 +13,7 @@ const Dashboard = () => {
   const fetchData = () => {
     GitlabLintHttpClient("GET_ALL", { entity: "stats" })
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((err) => console.error(err));
   };
