@@ -16,26 +16,13 @@ import {
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
+import levelsStyles from "../theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 345,
   },
-  warning: {
-    backgroundColor: theme.palette.warning.main,
-  },
-  info: {
-    backgroundColor: theme.palette.info.main,
-  },
-  error: {
-    backgroundColor: theme.palette.error.main,
-  },
-  pedantic: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  experimental: {
-    backgroundColor: theme.palette.success.main,
-  },
+  ...levelsStyles,
 }));
 
 const Rules = () => {

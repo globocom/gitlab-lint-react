@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
+import levelsStyles from "../theme";
+
 const useStyles = makeStyles((theme) => ({
   title: ({ size }) => ({
     borderRadius: 8,
@@ -16,25 +18,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#fff",
   }),
-  warning: {
-    backgroundColor: theme.palette.warning.main,
-  },
-  info: {
-    backgroundColor: theme.palette.info.main,
-  },
-  error: {
-    backgroundColor: theme.palette.error.main,
-  },
-  pedantic: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  experimental: {
-    backgroundColor: theme.palette.success.main,
-  },
   root: {
     display: "flex",
     alignItems: "center",
   },
+  ...levelsStyles,
 }));
 
 const RuleTitle = ({ rule, size }) => {

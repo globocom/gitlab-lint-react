@@ -17,6 +17,7 @@ import { debounce } from "lodash";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
+import levelsTheme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   level: {
@@ -40,21 +41,7 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(8),
     },
   },
-  warning: {
-    backgroundColor: theme.palette.warning.main,
-  },
-  info: {
-    backgroundColor: theme.palette.info.main,
-  },
-  error: {
-    backgroundColor: theme.palette.error.main,
-  },
-  pedantic: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  experimental: {
-    backgroundColor: theme.palette.success.main,
-  },
+  ...levelsTheme,
 }));
 
 const Projects = () => {

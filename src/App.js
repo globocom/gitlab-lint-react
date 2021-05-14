@@ -26,7 +26,7 @@ import Rules from "./rules/Rules";
 import Levels from "./levels/Levels";
 import About from "./about/About";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
   },

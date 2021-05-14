@@ -23,6 +23,10 @@ const useStyles = makeStyles({
 const Stats = ({ rows }) => {
   const classes = useStyles();
 
+  if (!rows.levelsCount) {
+    return null;
+  }
+
   const noRuleTriggered = rows.gitlabProjectsCount - rows.projectsCount;
   const projects = [
     { name: "no rule triggered", value: noRuleTriggered },
