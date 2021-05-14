@@ -35,7 +35,7 @@ const Levels = () => {
   const fetchData = () => {
     GitlabLintHttpClient("GET_ALL", { entity: "levels" })
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((err) => console.error(err));
   };

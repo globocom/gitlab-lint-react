@@ -31,7 +31,7 @@ const Rules = () => {
   const fetchData = () => {
     GitlabLintHttpClient("GET_ALL", { entity: "rules" })
       .then((data) => {
-        setData(data);
+        setData(data.data);
       })
       .catch((err) => console.error(err));
   };
