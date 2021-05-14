@@ -106,10 +106,11 @@ const Projects = () => {
               <ListItemText primary={row.path_with_namespace} />
               <div className={classes.levels}>
                 {Object.keys(row.rules).map((key, index) => {
+                  let colorClassName = row.rules[key] > 0 ? classes[key] : "";
                   return (
                     <Tooltip key={key} title={key} placement="top-start">
                       <Chip
-                        className={`${classes.level} ${classes[key]}`}
+                        className={`${classes.level} ${colorClassName}`}
                         label={row.rules[key]}
                         size="small"
                       />
