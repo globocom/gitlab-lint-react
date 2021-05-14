@@ -1,3 +1,6 @@
+// Copyright (c) 2021, Danilo Gila
+// Licensed under the BSD 3-Clause License
+
 const levelsTheme = {
   warning: {
     backgroundColor: "#ff9800",
