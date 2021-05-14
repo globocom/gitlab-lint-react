@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
   const classes = useStyles();
 
-  const [page, setPage] = React.useState(1);
-  const [searchInput, setSearchInput] = React.useState("");
+  const [page, setPage] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
   const handleChange = (event, value) => {
     setPage(value);
     fetchData({ query: { page: value, q: searchInput } });
@@ -62,10 +62,12 @@ const Projects = () => {
     debouncedSearch(value);
   };
   const [rows, setData] = useState({});
+  const [meta, setMeta] = useState({});
   const fetchData = ({ query }) => {
     GitlabLintHttpClient("GET_ALL", { entity: "projects", query: query })
       .then((data) => {
-        setData(data);
+        setData(data.data);
+        setMeta(data.meta);
       })
       .catch((err) => console.error(err));
   };
@@ -123,7 +125,7 @@ const Projects = () => {
         <Pagination
           boundaryCount={2}
           color="primary"
-          count={323}
+          count={meta.totalOfPages}
           onChange={handleChange}
           page={page}
           siblingCount={2}
