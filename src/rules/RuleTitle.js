@@ -5,6 +5,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import titleCase from "../utils"
 
 import levelsStyles from "../theme";
 
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: size === "normal" ? 32 : 16,
     marginRight: 8,
     padding: size === "normal" ? "8px 24px" : "4px 8px",
-    minWidth: 32,
+    minWidth: 100,
     textAlign: "center",
     color: "#fff",
   }),
@@ -37,7 +38,7 @@ const RuleTitle = ({ rule, size }) => {
   return (
     <div className={classes.root}>
       <span className={`${classes.title} ${classes[level]}`}>
-        {level.charAt(0).toUpperCase()}
+        {titleCase(level)}
       </span>
       <Typography variant={titleVariant}>{ruleId}</Typography>
     </div>
