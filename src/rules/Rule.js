@@ -93,9 +93,6 @@ const Rule = () => {
       {rows.rule.description && (
         <p className={classes.ruleDescription}>{rows.rule.description}</p>
       )}
-      <p>
-        <strong>Level</strong>: {rows.rule.level}
-      </p>
       <Box pt={2} pb={2}>
         <Divider />
       </Box>
