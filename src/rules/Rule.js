@@ -72,6 +72,7 @@ const Rule = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {

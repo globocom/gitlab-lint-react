@@ -53,6 +53,7 @@ const Projects = () => {
     setPage(value);
     fetchData({ query: { page: value, q: searchInput } });
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
     debounce((value) => fetchData({ query: { page, q: value } }), 500),
     []

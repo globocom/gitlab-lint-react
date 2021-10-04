@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
-import Loading from "../Loading";
 import RuleTitle from "../rules/RuleTitle";
 import ProjectTitle from "./ProjectTitle";
 
@@ -30,15 +29,16 @@ const Project = () => {
       .catch((err) => {
         setErrorMessage({
           status: err.response.status,
-          message: err.response.data.errors["_all"]
+          message: err.response.data.errors["_all"],
         });
         console.error(err);
-        console.error(err.response)
+        console.error(err.response);
       });
   };
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {
@@ -46,14 +46,14 @@ const Project = () => {
     if (errorMessage.status === 404) {
       messageTitle = "Project not found";
     }
-    return <>
-      <Typography variant="h4" paragraph>
-        {messageTitle}
-      </Typography>
-      <pre>
-        {errorMessage.message}
-      </pre>
-    </>;
+    return (
+      <>
+        <Typography variant="h4" paragraph>
+          {messageTitle}
+        </Typography>
+        <pre>{errorMessage.message}</pre>
+      </>
+    );
   }
 
   return (
