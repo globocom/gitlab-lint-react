@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ChartTooltip = ({ active, payload, label }) => {
+const ChartTooltip = ({ active, payload }) => {
   const classes = useStyles();
   if (!active) {
     return null;
