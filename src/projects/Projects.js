@@ -54,8 +54,8 @@ const Projects = () => {
     fetchData({ query: { page: value, q: searchInput } });
   };
   const debouncedSearch = useCallback(
-    debounce((value) => fetchData({ query: { page, q: value } }), 500),
-    []
+    () => debounce((value) => fetchData({ query: { page, q: value } }), 500),
+    [page]
   );
   const handleChangeSearch = (value) => {
     setSearchInput(value);
