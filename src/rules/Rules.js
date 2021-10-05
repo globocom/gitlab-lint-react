@@ -59,7 +59,11 @@ const Rules = () => {
             <Grid item key={row.ruleId} xs={12} sm={6} md={4}>
               <Card className={classes.root}>
                 <CardActionArea href={`/rules/${row.ruleId}`}>
-                  <CardHeader className={classes[row.level]} classes={{title: classes["title"]}} title={row.level} />
+                  <CardHeader
+                    className={classes[row.level]}
+                    classes={{ title: classes["title"] }}
+                    title={row.level}
+                  />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                       {row.name}
