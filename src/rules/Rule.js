@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import {
@@ -62,17 +62,17 @@ const Rule = () => {
   const classes = useStyles();
   const [rows, setData] = useState({});
   const { id } = useParams();
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     GitlabLintHttpClient("GET_ONE", { entity: "rules", id: id })
       .then((data) => {
         setData(data.data);
       })
       .catch((err) => console.error(err));
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {
     return <Loading />;

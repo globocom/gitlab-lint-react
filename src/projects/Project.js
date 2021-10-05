@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
-import Loading from "../Loading";
 import RuleTitle from "../rules/RuleTitle";
 import ProjectTitle from "./ProjectTitle";
 
@@ -22,7 +21,7 @@ const Project = () => {
   const [rows, setData] = useState({});
   const [errorMessage, setErrorMessage] = useState({});
   const { id } = useParams();
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     GitlabLintHttpClient("GET_ONE", { entity: "projects", id: id })
       .then((data) => {
         setData(data.data);
@@ -30,30 +29,30 @@ const Project = () => {
       .catch((err) => {
         setErrorMessage({
           status: err.response.status,
-          message: err.response.data.errors["_all"]
+          message: err.response.data.errors["_all"],
         });
         console.error(err);
-        console.error(err.response)
+        console.error(err.response);
       });
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   if (Object.keys(rows).length === 0 && rows.constructor === Object) {
     let messageTitle = "Error";
     if (errorMessage.status === 404) {
       messageTitle = "Project not found";
     }
-    return <>
-      <Typography variant="h4" paragraph>
-        {messageTitle}
-      </Typography>
-      <pre>
-        {errorMessage.message}
-      </pre>
-    </>;
+    return (
+      <>
+        <Typography variant="h4" paragraph>
+          {messageTitle}
+        </Typography>
+        <pre>{errorMessage.message}</pre>
+      </>
+    );
   }
 
   return (
