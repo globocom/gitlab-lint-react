@@ -68,6 +68,7 @@ const App = () => {
                   component="a"
                   color="inherit"
                   variant="h6"
+                  style={{ textDecoration: "none", textTransform: "uppercase" }}
                   className={classes.title}
                   href="/"
                 >
