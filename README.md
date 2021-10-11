@@ -1,12 +1,12 @@
 # gitlab-lint Frontend
 
-![gitlab-lint Frontend](gitlab-lint-frontend.png)
+![gitlab-lint Frontend](docs/gitlab-lint-frontend.png)
 
 ## Dependencies
 
-- nodejs
-- yarn
-- [gitlab-lint API and collector][gitlab-lint]
+- NodeJS v12+
+- Yarn v1.22+
+- [gitlab-lint API and Collector][gitlab-lint]
 
 ### Installing dependencies
 
@@ -14,7 +14,7 @@
 make setup
 ```
 
-## Run it
+## Running project
 
 ```bash
 make run
