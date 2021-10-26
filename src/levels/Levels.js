@@ -15,7 +15,7 @@ import Loading from "../Loading";
 import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import levelsStyle from "../theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
   },
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     fontSize: 14,
   },
   level: {
-    color: "#fff",
+    color: theme.palette.secondary.contrastText,
   },
   ...levelsStyle,
 }));

@@ -4,15 +4,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   tooltip: {
     margin: 0,
     padding: 10,
-    backgroundColor: "#fff",
-    border: "1px solid #ccc",
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.secondary.main,
+    border: `1px solid ${theme.palette.secondary.main}`,
     whiteSpace: "nowrap",
   },
-});
+}));
 
 const ChartTooltip = ({ active, payload, label }) => {
   const classes = useStyles();

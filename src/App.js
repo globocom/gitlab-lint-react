@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React from "react";
+import React, { useEffect, useReducer, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   createTheme,
@@ -13,6 +13,7 @@ import {
   Button,
   Container,
   CssBaseline,
+  IconButton,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -25,6 +26,7 @@ import Rule from "./rules/Rule";
 import Rules from "./rules/Rules";
 import Levels from "./levels/Levels";
 import About from "./about/About";
+import { Brightness4, Brightness7 } from "@material-ui/icons";
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -37,24 +39,66 @@ const useStyles = makeStyles(() => ({
 
 const gloBlue = "#0669de";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: gloBlue,
-    },
-    secondary: {
-      main: "#dc004e",
-    },
-    primary1Color: gloBlue,
-    type: "light",
-  },
-  typography: {
-    useNextVariants: true,
-  },
-});
+const initialState = { mode: "light" };
+
+const initializer = (initialValue = initialState) =>
+  JSON.parse(localStorage.getItem("state")) || initialValue;
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "toggle":
+      return { mode: state.mode === "light" ? "dark" : "light" };
+    default:
+      throw new Error();
+  }
+}
 
 const App = () => {
   const classes = useStyles();
+  const [state, dispatch] = useReducer(reducer, initialState, initializer);
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          ...(state.mode === "light"
+            ? {
+                // light mode
+                primary: {
+                  main: gloBlue,
+                },
+                secondary: {
+                  main: gloBlue,
+                },
+                primary1Color: gloBlue,
+                type: state.mode,
+              }
+            : {
+                // dark mode
+                primary: {
+                  main: "#07366E",
+                },
+                secondary: {
+                  main: gloBlue,
+                },
+                background: {
+                  default: "#020c18",
+                  paper: "#05182E",
+                },
+                primary1Color: gloBlue,
+                type: state.mode,
+              }),
+        },
+        typography: {
+          useNextVariants: true,
+        },
+      }),
+    [state.mode]
+  );
+
+  useEffect(() => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }, [state]);
 
   return (
     <Router>
@@ -85,6 +129,16 @@ const App = () => {
                 <Button color="inherit" href="/about">
                   About
                 </Button>
+                <IconButton
+                  onClick={() => dispatch({ type: "toggle" })}
+                  color="inherit"
+                >
+                  {theme.palette.type === "dark" ? (
+                    <Brightness4 />
+                  ) : (
+                    <Brightness7 />
+                  )}
+                </IconButton>
               </Toolbar>
             </Container>
           </AppBar>
