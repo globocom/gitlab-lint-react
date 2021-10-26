@@ -19,16 +19,17 @@ import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
 import RuleTitle from "./RuleTitle";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   ruleDescription: {
     alignItems: "center",
-    backgroundColor: "#ffd",
-    border: "1px solid #ffeb44",
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.secondary.main,
+    border: `1px solid ${theme.palette.secondary.main}`,
     display: "flex",
     padding: 16,
     whiteSpace: "pre-wrap",
   },
-});
+}));
 
 const RuleProjects = ({ projects }) => {
   if (projects.length <= 0) {

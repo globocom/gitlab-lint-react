@@ -21,7 +21,7 @@ import levelsTheme from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   level: {
-    color: "#fff",
+    color: theme.palette.secondary.contrastText,
   },
   header: {
     display: "flex",

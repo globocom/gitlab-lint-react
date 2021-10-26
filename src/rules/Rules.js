@@ -18,12 +18,12 @@ import GitlabLintHttpClient from "../GitlabLintHttpClient";
 import Loading from "../Loading";
 import levelsStyles from "../theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
   title: {
-    color: "#fff",
+    color: theme.palette.secondary.contrastText,
   },
   ...levelsStyles,
 }));
@@ -59,7 +59,11 @@ const Rules = () => {
             <Grid item key={row.ruleId} xs={12} sm={6} md={4}>
               <Card className={classes.root}>
                 <CardActionArea href={`/rules/${row.ruleId}`}>
-                  <CardHeader className={classes[row.level]} classes={{title: classes["title"]}} title={row.level} />
+                  <CardHeader
+                    className={classes[row.level]}
+                    classes={{ title: classes["title"] }}
+                    title={row.level}
+                  />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                       {row.name}
@@ -78,7 +82,7 @@ const Rules = () => {
                 <CardActions>
                   <Button
                     size="small"
-                    color="primary"
+                    color="secondary"
                     href={`/rules/${row.ruleId}`}
                   >
                     Show projects

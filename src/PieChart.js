@@ -1,6 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
+import { useTheme } from "@material-ui/core";
 import React from "react";
 import { Tooltip, PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 
@@ -8,6 +9,7 @@ import { chartColors } from "./chartColors";
 import ChartTooltip from "./ChartTooltip";
 
 const WalletPieChart = ({ data, outerRadius }) => {
+  const theme = useTheme();
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,
@@ -28,6 +30,7 @@ const WalletPieChart = ({ data, outerRadius }) => {
         y={y}
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
+        style={{ fill: theme.palette.secondary.main }}
       >
         {name}
       </text>
