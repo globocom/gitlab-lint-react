@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   ruleDescription: {
     alignItems: "center",
     backgroundColor: "#ffd",
+    color: "#000",
     border: "1px solid #ffeb44",
     display: "flex",
     padding: 16,
