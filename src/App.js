@@ -4,7 +4,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
-  createMuiTheme,
+  createTheme,
   makeStyles,
   MuiThemeProvider,
 } from "@material-ui/core/styles";
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
 
 const gloBlue = "#0669de";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: gloBlue,
