@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause License
 
 import React, { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import {
   Box,
   Breadcrumbs,
@@ -58,7 +58,7 @@ const Project = () => {
   return (
     <React.Fragment>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link color="inherit" href="/projects">
+        <Link component={RouterLink} color="inherit" to="/projects">
           Projects
         </Link>
         <Typography color="textPrimary">
@@ -99,8 +99,8 @@ const Project = () => {
             <ListItem
               key={rule.ruleId}
               button
-              component="a"
-              href={`/rules/${rule.ruleId}`}
+              component={RouterLink}
+              to={`/rules/${rule.ruleId}`}
             >
               <RuleTitle rule={rule} size="small" />
             </ListItem>
