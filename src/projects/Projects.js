@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause License
 
 import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import {
@@ -99,8 +100,8 @@ const Projects = () => {
           return (
             <ListItem
               button
-              component="a"
-              href={`/projects/${row.id}`}
+              component={Link}
+              to={`/projects/${row.id}`}
               key={row.id}
             >
               <ListItemText primary={row.path_with_namespace} />

@@ -2,7 +2,7 @@
 // Licensed under the BSD 3-Clause License
 
 import React, { useEffect, useReducer, useMemo } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 import {
   createTheme,
   makeStyles,
@@ -109,24 +109,24 @@ const App = () => {
             <Container maxWidth="lg">
               <Toolbar>
                 <Typography
-                  component="a"
+                  component={Link}
                   color="inherit"
                   variant="h6"
                   className={classes.title}
-                  href="/"
+                  to="/"
                 >
                   gitlab-lint
                 </Typography>
-                <Button color="inherit" href="/rules">
+                <Button component={Link} color="inherit" to="/rules">
                   Rules
                 </Button>
-                <Button color="inherit" href="/projects">
+                <Button component={Link} color="inherit" to="/projects">
                   Projects
                 </Button>
-                <Button color="inherit" href="/levels">
+                <Button component={Link} color="inherit" to="/levels">
                   Levels
                 </Button>
-                <Button color="inherit" href="/about">
+                <Button component={Link} color="inherit" to="/about">
                   About
                 </Button>
                 <IconButton

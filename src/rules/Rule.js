@@ -3,7 +3,8 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
+
 import {
   Box,
   Breadcrumbs,
@@ -47,8 +48,8 @@ const RuleProjects = ({ projects }) => {
             <ListItem
               key={row.projectId}
               button
-              component="a"
-              href={`/projects/${row.projectId}`}
+              component={RouterLink}
+              to={`/projects/${row.projectId}`}
             >
               <ListItemText primary={row.pathWithNamespace} />
             </ListItem>
@@ -82,7 +83,7 @@ const Rule = () => {
   return (
     <React.Fragment>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link color="inherit" href="/rules">
+        <Link component={RouterLink} color="inherit" to="/rules">
           Rules
         </Link>
         <Typography color="textPrimary">{rows.rule.ruleId}</Typography>

@@ -2,6 +2,7 @@
 // Licensed under the BSD 3-Clause License
 
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -58,7 +59,7 @@ const Rules = () => {
           return (
             <Grid item key={row.ruleId} xs={12} sm={6} md={4}>
               <Card className={classes.root}>
-                <CardActionArea href={`/rules/${row.ruleId}`}>
+                <CardActionArea component={Link} to={`rules/${row.ruleId}`}>
                   <CardHeader
                     className={classes[row.level]}
                     classes={{ title: classes["title"] }}
@@ -81,9 +82,10 @@ const Rules = () => {
                 </CardActionArea>
                 <CardActions>
                   <Button
+                    component={Link}
                     size="small"
                     color="secondary"
-                    href={`/rules/${row.ruleId}`}
+                    to={`/rules/${row.ruleId}`}
                   >
                     Show projects
                   </Button>
