@@ -25,6 +25,7 @@ const About = () => {
           <li>
             <span>Frontend: </span>
             <Link
+              color="secondary"
               target="_blank"
               href="https://github.com/globocom/gitlab-lint-react"
             >
@@ -34,6 +35,7 @@ const About = () => {
           <li>
             <span>Backend: </span>
             <Link
+              color="secondary"
               target="_blank"
               href="https://github.com/globocom/gitlab-lint"
             >
