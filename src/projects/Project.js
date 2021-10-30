@@ -75,7 +75,7 @@ const Project = () => {
 
       <p>
         <strong>URL</strong>:{" "}
-        <Link target="_blank" href={rows.project.web_url}>
+        <Link color="secondary" target="_blank" href={rows.project.web_url}>
           {rows.project.web_url}
         </Link>
       </p>
