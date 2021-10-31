@@ -4,7 +4,7 @@
 import React, { useEffect, useReducer, useMemo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
-  createTheme,
+  createMuiTheme,
   makeStyles,
   MuiThemeProvider,
 } from "@material-ui/core/styles";
@@ -18,6 +18,8 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import { Menu, Close } from "@material-ui/icons";
+
 import Dashboard from "./dashboard/Dashboard";
 import NotFound from "./not_found/NotFound";
 import Project from "./projects/Project";
@@ -28,9 +30,64 @@ import Levels from "./levels/Levels";
 import About from "./about/About";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 
-const useStyles = makeStyles(() => ({
-  title: {
-    flexGrow: 1,
+const useStyles = makeStyles((theme) => ({
+  logo: {
+    textAlign: "center",
+    minHeight: "56px",
+    lineHeight: "56px",
+    textDecoration: "none",
+
+    [theme.breakpoints.up("sm")]: {
+      textAlign: "left",
+      flexGrow: 1,
+      width: "unset",
+    },
+  },
+  navLinks: {
+    display: "none",
+
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  navLinksMobile: {
+    display: "flex",
+    flexDirection: "column",
+    margin: "0 20px",
+    width: "100%",
+
+    [theme.breakpoints.up("sm")]: {
+      flexDirection: "row",
+    },
+
+    "& > a": {
+      borderBottom: "1px solid rgba(225, 225, 225, 0.4)",
+      borderRadius: "unset",
+      padding: "10px",
+
+      "&:last-child": {
+        border: "none",
+      },
+    },
+  },
+  mobileMenuIcon: {
+    display: "block",
+    background: "none",
+    border: "none",
+    color: "white",
+    cursor: "pointer",
+    position: "absolute",
+    top: "16px",
+    right: "8px",
+
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  dFlex: {
+    display: "flex",
+    flexFlow: "row wrap",
+    justifyContent: "center",
   },
   main: {
     paddingTop: 24,
@@ -59,7 +116,7 @@ const App = () => {
 
   const theme = useMemo(
     () =>
-      createTheme({
+    createMuiTheme({
         palette: {
           ...(state.mode === "light"
             ? {
@@ -99,36 +156,54 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
   }, [state]);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  const handleToggleMenu = () => {
+    setIsMobile((isMobile) => !isMobile);
+  };
 
   return (
     <Router>
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={theme} onScroll={() => setIsMobile(false)}>
         <div className={classes.root}>
           <CssBaseline />
           <AppBar position="static" color="primary">
             <Container maxWidth="lg">
-              <Toolbar>
+              <Toolbar className={classes.dFlex}>
                 <Typography
                   component="a"
                   color="inherit"
                   variant="h6"
-                  className={classes.title}
+                  className={classes.logo}
                   href="/"
                 >
                   gitlab-lint
                 </Typography>
-                <Button color="inherit" href="/rules">
-                  Rules
-                </Button>
-                <Button color="inherit" href="/projects">
-                  Projects
-                </Button>
-                <Button color="inherit" href="/levels">
-                  Levels
-                </Button>
-                <Button color="inherit" href="/about">
-                  About
-                </Button>
+                <div
+                  className={
+                    isMobile ? classes.navLinksMobile : classes.navLinks
+                  }
+                  onClick={handleToggleMenu}
+                >
+                  <Button color="inherit" href="/rules">
+                    Rules
+                  </Button>
+                  <Button color="inherit" href="/projects">
+                    Projects
+                  </Button>
+                  <Button color="inherit" href="/levels">
+                    Levels
+                  </Button>
+                  <Button color="inherit" href="/about">
+                    About
+                  </Button>
+                </div>
+                <button
+                  className={classes.mobileMenuIcon}
+                  onClick={handleToggleMenu}
+                >
+                  {isMobile ? <Close /> : <Menu />}
+                </button>
                 <IconButton
                   onClick={() => dispatch({ type: "toggle" })}
                   color="inherit"
