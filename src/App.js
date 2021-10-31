@@ -31,63 +31,68 @@ import About from "./about/About";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  logo: {
-    textAlign: "center",
+  title: {
     minHeight: "56px",
     lineHeight: "56px",
     textDecoration: "none",
-
-    [theme.breakpoints.up("sm")]: {
-      textAlign: "left",
-      flexGrow: 1,
-      width: "unset",
-    },
   },
   navLinks: {
-    display: "none",
+    display: "block",
 
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
     },
   },
   navLinksMobile: {
     display: "flex",
-    flexDirection: "column",
-    margin: "0 20px",
-    width: "100%",
+    flexDirection: "row",
+    width: "unset",
 
-    [theme.breakpoints.up("sm")]: {
-      flexDirection: "row",
-    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+      width: "100%",
 
-    "& > a": {
-      borderBottom: "1px solid rgba(225, 225, 225, 0.4)",
-      borderRadius: "unset",
-      padding: "10px",
+      "& > a": {
+        borderBottom: "1px solid rgba(225, 225, 225, 0.4)",
+        borderRadius: "unset",
+        padding: "10px",
 
-      "&:last-child": {
-        border: "none",
+        "&:last-child": {
+          border: "none",
+        },
       },
     },
   },
   mobileMenuIcon: {
-    display: "block",
-    background: "none",
-    border: "none",
-    color: "white",
-    cursor: "pointer",
-    position: "absolute",
-    top: "16px",
-    right: "8px",
+    display: "none",
 
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
+    [theme.breakpoints.down("xs")]: {
+      display: "block",
+      background: "none",
+      border: "none",
+      color: "white",
+      cursor: "pointer",
+      position: "absolute",
+      top: "16px",
+      right: "8px",
     },
   },
   dFlex: {
     display: "flex",
-    flexFlow: "row wrap",
-    justifyContent: "center",
+    justifyContent: "space-between",
+
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+    },
+  },
+  IconButton: {
+    order: 1,
+
+    [theme.breakpoints.down("xs")]: {
+      position: "absolute",
+      top: 0,
+      left: "8px",
+    },
   },
   main: {
     paddingTop: 24,
@@ -116,7 +121,7 @@ const App = () => {
 
   const theme = useMemo(
     () =>
-    createMuiTheme({
+      createMuiTheme({
         palette: {
           ...(state.mode === "light"
             ? {
@@ -162,23 +167,47 @@ const App = () => {
     setIsMobile((isMobile) => !isMobile);
   };
 
+  function closeMenuOnScroll() {
+    setIsMobile(false);
+  }
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", closeMenuOnScroll);
+
+    return () => {
+      window.removeEventListener("scroll", closeMenuOnScroll);
+    };
+  }, []);
+
   return (
     <Router>
-      <MuiThemeProvider theme={theme} onScroll={() => setIsMobile(false)}>
+      <MuiThemeProvider theme={theme}>
         <div className={classes.root}>
           <CssBaseline />
           <AppBar position="static" color="primary">
             <Container maxWidth="lg">
               <Toolbar className={classes.dFlex}>
+                <IconButton
+                  className={classes.IconButton}
+                  onClick={() => dispatch({ type: "toggle" })}
+                  color="inherit"
+                >
+                  {theme.palette.type === "dark" ? (
+                    <Brightness4 />
+                  ) : (
+                    <Brightness7 />
+                  )}
+                </IconButton>
                 <Typography
                   component="a"
                   color="inherit"
                   variant="h6"
-                  className={classes.logo}
+                  className={classes.title}
                   href="/"
                 >
                   gitlab-lint
                 </Typography>
+
                 <div
                   className={
                     isMobile ? classes.navLinksMobile : classes.navLinks
@@ -198,22 +227,13 @@ const App = () => {
                     About
                   </Button>
                 </div>
+
                 <button
                   className={classes.mobileMenuIcon}
                   onClick={handleToggleMenu}
                 >
                   {isMobile ? <Close /> : <Menu />}
                 </button>
-                <IconButton
-                  onClick={() => dispatch({ type: "toggle" })}
-                  color="inherit"
-                >
-                  {theme.palette.type === "dark" ? (
-                    <Brightness4 />
-                  ) : (
-                    <Brightness7 />
-                  )}
-                </IconButton>
               </Toolbar>
             </Container>
           </AppBar>
