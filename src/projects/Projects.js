@@ -25,8 +25,15 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.contrastText,
   },
   header: {
-    display: "flex",
-    justifyContent: "space-between",
+    flexFlow: "row wrap",
+    textAlign: "center",
+    marginBottom: "40px",
+
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: "unset",
+    },
   },
   levels: {
     display: "flex",
@@ -40,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(8),
+
+      "& > ul": {
+        [theme.breakpoints.down("xs")]: {
+          justifyContent: "center",
+        },
+      },
     },
   },
   ...levelsTheme,
