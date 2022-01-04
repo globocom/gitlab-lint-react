@@ -1,7 +1,7 @@
 // Copyright (c) 2021, Marcelo Jorge Vieira
 // Licensed under the BSD 3-Clause License
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
@@ -67,13 +67,14 @@ const Projects = () => {
     setPage(value);
     fetchData({ query: { page: value, q: searchInput } });
   };
-  const debouncedSearch = useCallback(
+  const debouncedSearch = useMemo(
     () => debounce((value) => fetchData({ query: { page, q: value } }), 500),
     [page]
   );
-  const handleChangeSearch = (value) => {
-    setSearchInput(value);
-    debouncedSearch(value);
+  const handleChangeSearch = (event) => {
+    event.preventDefault();
+    setSearchInput(event.target.value);
+    debouncedSearch(event.target.value);
   };
   const [rows, setData] = useState({});
   const [meta, setMeta] = useState({});
@@ -104,7 +105,7 @@ const Projects = () => {
           <Input
             placeholder="Find a project..."
             value={searchInput}
-            onChange={(e) => handleChangeSearch(e.target.value)}
+            onChange={(e) => handleChangeSearch(e)}
           />
         </form>
       </div>
