@@ -77,7 +77,7 @@ const Numbers = ({ rows }) => {
                 color="textSecondary"
                 gutterBottom
               >
-                Projects with some rule
+                Projects with some rule & regulations
               </Typography>
               <Typography variant="h5" component="h2">
                 {rows.projectsCount}
